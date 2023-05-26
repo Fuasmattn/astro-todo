@@ -3,6 +3,7 @@ export interface Props {
   title: string;
 }
 
+import "@maibornwolff/mwui-stencil/dist/mwui-stencil/mwui-stencil.css";
 const { title } = Astro.props;
 ---
 
@@ -19,7 +20,10 @@ const { title } = Astro.props;
   <body
     class="bg-gradient-to-br from-neutral-50 to-pink-50 text-neutral-900 dark:from-blue-900 dark:to-pink-950 dark:text-neutral-50"
   >
+  <div class="w-screen h-screen">
+
     <slot />
+  </div>
   </body>
 </html>
 <style is:global></style>

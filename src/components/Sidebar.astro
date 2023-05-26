@@ -1,0 +1,16 @@
+---
+export interface Props {
+  lists: string[];
+}
+
+const { lists } = Astro.props;
+---
+
+<div>
+	<h1>Tasks</h1>
+	<nav>
+		<ul>
+			<li>task list 1</li>
+		</ul>
+	</nav>
+</div>

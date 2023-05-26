@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const { task } = Astro.params;
+---
+
+<Layout title="Task | WeAstro">
+  <main class="h-screen w-screen">
+    <section class="p-10">
+      <p>task with id: {task}</p>
+    </section>
+  </main>
+</Layout>
