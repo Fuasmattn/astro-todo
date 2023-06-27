@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import type { List } from "../[listId].json";
+
+const { id } = Astro.params;
+
+const response = await fetch(`http://localhost:3000/${id}.json`);
+const list: List = await response.json();
+---
+
+<Layout title={`${list.name} | WeAstro`}>
+  <main class="h-full p-10">
+    <Breadcrumbs />
+    <h1 class="my-6 text-xl"><span class="font-black mr-1 text-pink-500">//</span>{list.name}</h1>
+    <p class="mb-4 opacity-50">{list.description}</p>
+    <ul>
+      {
+        list.items.map((item) => (
+          <li
+            data-id={item.id}
+            class="item transition-bg-opacity mb-2 rounded bg-white bg-opacity-5 px-4 py-3 duration-200 ease-in-out hover:bg-opacity-10"
+          >
+            <div class="flex gap-2">
+              <input type="checkbox" checked={item.done} />
+              <p>{item.name}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<script lang="js">
+const items = document.querySelectorAll("li.item");
+items.forEach((i) =>
+  i.addEventListener("click", () => {
+    console.log("clicked item", i.dataset.id);
+    // TODO: update via api
+      // how to update the UI?
+      // using a POST form instead?
+      // save btn with redirect?
+    }),
+  );
+</script>

@@ -1,0 +1,24 @@
+---
+const paths = new URL(Astro.request.url).pathname.split('/').filter((x: any) => x);
+
+const parts = [
+  {
+    text: 'WeAstro',
+    href: '/',
+  }
+];
+
+paths.forEach((text: string, i: number) => {
+  const href = `/${paths.slice(0, i + 1).join('/')}`;
+  parts.push({ text: text.replace(/[-_]/g, ' '), href })
+})
+---
+
+<nav aria-label="Breadcrumb" class="text-sm text-white">
+  <ol class="flex flex-row gap-1" role="list">
+    {parts.map(({ text, href }, index) =>
+    <li class="opacity-20 hover:opacity-80" role="listitem">
+    <a class="mr-1" href={href}>{text}</a>{index !== parts.length -1 && "/"}
+    </li>)}
+  </ol>
+</nav>
