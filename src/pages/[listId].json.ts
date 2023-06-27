@@ -27,8 +27,8 @@ const lists: List[] = [
     id: uuidv4(),
     items: [
       { name: "finish astro example", done: false, id: uuidv4() },
-      { name: "do other stuff", done: true, id: uuidv4() }
-  ],
+      { name: "do other stuff", done: true, id: uuidv4() },
+    ],
   },
 ];
 
@@ -44,8 +44,27 @@ export const get: APIRoute = ({ params }) => {
 
 export const post: APIRoute = async ({ request }) => {
   const body = await request.json();
-  console.log(body)
-  lists.push({ name: body.name, description: body.description, items: [], id: uuidv4() });
+  if (!body.name) {
+    return new Response(
+      JSON.stringify({ message: "Field name is required." }),
+      { status: 400 },
+    );
+  }
+
+  if (lists.find(({ name }) => name === body.name)) {
+    return new Response(
+      JSON.stringify({ message: `List with name "${body.name}" already exists.` }),
+      {
+        status: 400,
+      },
+    );
+  }
+  lists.push({
+    name: body.name,
+    description: body.description,
+    items: [],
+    id: uuidv4(),
+  });
 
   return new Response(null, { status: 200 });
 };
