@@ -7,26 +7,26 @@ export interface Props {
 
 const { lists } = Astro.props;
 ---
-<div class="bg-white bg-opacity-5 rounded p-4 w-64 h-full">
+<div class="flex flex-col bg-white bg-opacity-5 rounded p-4 w-64 h-full">
 	<a href="/"><h1 class="text-xl mt-4 mb-10 font-semibold"><span class="font-black text-pink-500 mr-1">//</span>WeAstro</h1></a>
-		<nav>
-			<p class="mt-6 pl-2 mb-2 text-sm text-white text-opacity-50">Tasklists</p>
-			<ul>
-				{lists.map((list) =>
+	<p class="mt-6 pl-2 mb-2 text-sm text-white text-opacity-50">Tasklists</p>
+		<nav class="h-full flex flex-col justify-between">
+			<div>
+				<ul>
+					{lists.map((list) =>
 				<a href={`/lists/${list.id}`}>
 					<li class={`${Astro.request.url.includes(list.id) && "bg-opacity-10"} p-2 mb-2 text-lg bg-white bg-opacity-0 hover:bg-opacity-5 transition-bg-opacity ease-in-out duration-200 rounded`}>
-					{list.name}
-					</li>
-				</a>
-				)}
+						{list.name}
+						</li>
+						</a>
+						)}
 				<hr class="opacity-5 my-2" />
+			</div>
 				<a
-				href="/lists/create">
-				<li class={`${Astro.request.url.includes("create") && "bg-opacity-10"} p-2 mb-2 text-lg bg-white bg-opacity-0 hover:bg-opacity-5 transition-bg-opacity ease-in-out duration-200 rounded`}>
+				href="/lists/create"
+				class={`${Astro.request.url.includes("create") && "bg-opacity-10"} p-2 mb-2 text-lg bg-white bg-opacity-0 hover:bg-opacity-5 transition-bg-opacity ease-in-out duration-200 rounded`}>
 				+ Create new list
-				</li>
-				</a
-			>
+				</a>
 			</ul>
 		</nav>
 </div>

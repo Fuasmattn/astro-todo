@@ -29,7 +29,7 @@ const lists: List[] = await listResponse.json();
   >
   <div class="w-screen h-screen flex">
       <div class="w-64 h-full"><Sidebar lists={lists} /></div>
-      <div class="flex p-10 w-full">
+      <div class="flex px-10 pb-10 w-full">
     <slot />
     </div>
   </div>
