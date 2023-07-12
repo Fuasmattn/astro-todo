@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import TaskItem from "../../components/TaskItem";
 import type { List } from "../[listId].json";
 
 const { id } = Astro.params;
@@ -12,7 +13,9 @@ const list: List = await response.json();
 <Layout title={`${list.name} | WeAstro`}>
   <main class="h-full p-10">
     <Breadcrumbs />
-    <h1 class="my-6 text-xl"><span class="font-black mr-1 text-pink-500">//</span>{list.name}</h1>
+    <h1 class="my-6 text-xl">
+      <span class="mr-1 font-black text-pink-500">//</span>{list.name}
+    </h1>
     <p class="mb-4 opacity-50">{list.description}</p>
     <ul>
       {
@@ -21,10 +24,7 @@ const list: List = await response.json();
             data-id={item.id}
             class="item transition-bg-opacity mb-2 rounded bg-white bg-opacity-5 px-4 py-3 duration-200 ease-in-out hover:bg-opacity-10"
           >
-            <div class="flex gap-2">
-              <input type="checkbox" checked={item.done} />
-              <p>{item.name}</p>
-            </div>
+            <TaskItem client:load item={item} />
           </li>
         ))
       }
@@ -33,11 +33,11 @@ const list: List = await response.json();
 </Layout>
 
 <script lang="js">
-const items = document.querySelectorAll("li.item");
-items.forEach((i) =>
-  i.addEventListener("click", () => {
-    console.log("clicked item", i.dataset.id);
-    // TODO: update via api
+  const items = document.querySelectorAll("li.item");
+  items.forEach((i) =>
+    i.addEventListener("click", () => {
+      console.log("clicked item", i.dataset.id);
+      // TODO: update via api
       // how to update the UI?
       // using a POST form instead?
       // save btn with redirect?
