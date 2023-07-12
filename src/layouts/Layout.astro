@@ -1,5 +1,4 @@
 ---
-
 import Sidebar from "../components/Sidebar.astro";
 import "@maibornwolff/mwui-stencil/dist/mwui-stencil/mwui-stencil.css";
 import type { List } from "../pages/[listId].json";
@@ -10,7 +9,9 @@ export interface Props {
 
 const { title } = Astro.props;
 
-const listResponse = await fetch(`${import.meta.env.API_BASE_URL}/lists.json`);
+const listResponse = await fetch(
+  `https://${import.meta.env.VERCEL_URL}/lists.json`,
+);
 const lists: List[] = await listResponse.json();
 ---
 
@@ -27,11 +28,11 @@ const lists: List[] = await listResponse.json();
   <body
     class="bg-gradient-to-br from-neutral-50 to-pink-50 text-neutral-900 dark:from-blue-900 dark:to-pink-950 dark:text-neutral-50"
   >
-  <div class="w-screen h-screen flex">
-      <div class="w-64 h-full"><Sidebar lists={lists} /></div>
-      <div class="flex px-10 pb-10 w-full">
-    <slot />
+    <div class="flex h-screen w-screen">
+      <div class="h-full w-64"><Sidebar lists={lists} /></div>
+      <div class="flex w-full px-10 pb-10">
+        <slot />
+      </div>
     </div>
-  </div>
   </body>
 </html>

@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import type { List } from "../[listId].json";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
-const listResponse = await fetch(`${import.meta.env.API_BASE_URL}/lists.json`);
+const listResponse = await fetch(`https://${import.meta.env.VERCEL_URL}/lists.json`);
 const lists: List[] = await listResponse.json();
 ---
 
