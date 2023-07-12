@@ -6,7 +6,7 @@ import type { List } from "../[listId].json";
 
 const { id } = Astro.params;
 
-const response = await fetch(`http://localhost:3000/${id}.json`);
+const response = await fetch(`${import.meta.env.API_BASE_URL}/${id}.json`);
 const list: List = await response.json();
 ---
 

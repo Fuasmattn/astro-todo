@@ -10,7 +10,7 @@ export interface Props {
 
 const { title } = Astro.props;
 
-const listResponse = await fetch("http://localhost:3000/lists.json");
+const listResponse = await fetch(`${import.meta.env.API_BASE_URL}/lists.json`);
 const lists: List[] = await listResponse.json();
 ---
 
